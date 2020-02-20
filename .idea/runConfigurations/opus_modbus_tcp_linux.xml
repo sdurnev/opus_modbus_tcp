@@ -11,6 +11,7 @@
     <filePath value="$PROJECT_DIR$/main.go" />
     <directory value="$PROJECT_DIR$/" />
     <output_directory value="$PROJECT_DIR$/bin/0.0.1/linux" />
+    <option name="run" value="false" />
     <method v="2" />
   </configuration>
 </component>

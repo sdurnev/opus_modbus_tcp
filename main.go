@@ -1,11 +1,9 @@
 package main
 
 import (
-	"encoding/binary"
 	"flag"
 	"fmt"
 	"github.com/goburrow/modbus"
-	"math"
 	"time"
 )
 
@@ -49,6 +47,6 @@ func main() {
 		//fmt.Printf("%s\n", err)
 	}
 
-	//fmt.Println(len(results))
+	fmt.Println(len(results))
 	//fmt.Println(results)
 }
