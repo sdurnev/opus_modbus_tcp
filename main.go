@@ -40,13 +40,13 @@ var data opus_param = opus_param{
 		"4_2_Man_boost_char  ",
 		"4_3_Rem_boost_char  ",
 	}},
-	{10, 2, "System_Voltage", []string{"bcmSystemVoltage"}},
-	{11, 2, "Load_current", []string{"bcmLoadCurrent"}},
-	{12, 2, "Battery_current", []string{"bcmBatteryCurrent"}},
-	{13, 2, "Total_rectifier_current", []string{"bcmTotalRectifierCurrent"}},
-	{14, 2, "Total_inverter_current", []string{"bcmTotalInverterCurrent"}},
-	{15, 2, "Maximum_battery_temperature", []string{"bcmMaxBatteryTemperature"}},
-	{16, 2, "Maximum_system_temperature", []string{"bcmMaxSystemTemperature"}},
+	{9, 2, "System_Voltage", []string{"bcmSystemVoltage"}},
+	{10, 2, "Load_current", []string{"bcmLoadCurrent"}},
+	{11, 2, "Battery_current", []string{"bcmBatteryCurrent"}},
+	{12, 2, "Total_rectifier_current", []string{"bcmTotalRectifierCurrent"}},
+	{13, 2, "Total_inverter_current", []string{"bcmTotalInverterCurrent"}},
+	{14, 2, "Maximum_battery_temperature", []string{"bcmMaxBatteryTemperature"}},
+	{15, 2, "Maximum_system_temperature", []string{"bcmMaxSystemTemperature"}},
 	{30, 1, "System voltage alarms", []string{
 		"30_0_Mains_fault",
 		"30_1_Phase_fault",
@@ -130,7 +130,7 @@ func main() {
 	addressIP := flag.String("ip", "localhost", "a string")
 	tcpPort := flag.String("port", "502", "a string")
 	slaveID := flag.Int("id", 1, "an int")
-	regQuantity := flag.Uint("q", 38, "an uint")
+	regQuantity := flag.Uint("q", 39, "an uint")
 	flag.Parse()
 	serverParam := fmt.Sprint(*addressIP, ":", *tcpPort)
 	s := byte(*slaveID)
@@ -152,14 +152,15 @@ func main() {
 	fmt.Println(len(data))
 	fmt.Println(results)
 	fmt.Println(hex.EncodeToString(results))
-	fmt.Println(results[3:6])
+	//fmt.Println(results[3:6])
 	//	fmt.Printf("%x  \n", results)
 
 	for i := 0; i < len(data); i++ {
-		/*fmt.Printf("%d ", i)
-		fmt.Print(data[i].Name)
-		fmt.Print(" ")
-		fmt.Println(data[i].Req)
-		fmt.Println(results[data[i].Req : data[i].Req+2])*/
+		//fmt.Printf("%d ", i)
+		//fmt.Print(data[i].Name)
+		//fmt.Print(" ")
+		a := data[i].Req * 2
+		fmt.Println(hex.EncodeToString(results[a : a+2]))
+		//fmt.Println(results[data[i].Req : data[i].Req+2])*/
 	}
 }
