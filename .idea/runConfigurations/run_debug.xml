@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="run debug" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="opus_modbus_tcp" />
+    <working_directory value="$PROJECT_DIR$/" />
+    <parameters value="-ip=10.10.12.21" />
+    <kind value="FILE" />
+    <filePath value="$PROJECT_DIR$/main.go" />
+    <directory value="$PROJECT_DIR$/" />
+    <method v="2" />
+  </configuration>
+</component>
