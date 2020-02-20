@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/hex"
 	"flag"
 	"fmt"
 	"github.com/goburrow/modbus"
@@ -150,13 +151,15 @@ func main() {
 	fmt.Println(len(results))
 	fmt.Println(len(data))
 	fmt.Println(results)
+	fmt.Println(hex.EncodeToString(results))
+	fmt.Println(results[3:6])
 	//	fmt.Printf("%x  \n", results)
 
 	for i := 0; i < len(data); i++ {
-		fmt.Printf("%d ", i)
+		/*fmt.Printf("%d ", i)
 		fmt.Print(data[i].Name)
 		fmt.Print(" ")
 		fmt.Println(data[i].Req)
-		fmt.Println(results[data[i].Req : data[i].Req+2])
+		fmt.Println(results[data[i].Req : data[i].Req+2])*/
 	}
 }
