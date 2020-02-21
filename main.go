@@ -2,11 +2,12 @@ package main
 
 import (
 	"encoding/binary"
-	"encoding/hex"
 	"flag"
 	"fmt"
 	"github.com/goburrow/modbus"
 	"math"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -132,7 +133,7 @@ func main() {
 	addressIP := flag.String("ip", "localhost", "a string")
 	tcpPort := flag.String("port", "502", "a string")
 	slaveID := flag.Int("id", 1, "an int")
-	regQuantity := flag.Uint("q", 39, "an uint")
+
 	flag.Parse()
 	serverParam := fmt.Sprint(*addressIP, ":", *tcpPort)
 	s := byte(*slaveID)
@@ -145,26 +146,32 @@ func main() {
 	defer handler.Close()
 	client := modbus.NewClient(handler)
 
-	results, err := client.ReadHoldingRegisters(0, uint16(*regQuantity))
+	results, err := client.ReadHoldingRegisters(0, 39)
 	if err != nil {
 		fmt.Printf("{\"status\":\"error\", \"error\":\"%s\", \"version\": \"%s\"}", err, version)
 	}
 
-	fmt.Println(len(results))
-	fmt.Println(len(data))
-	fmt.Println(results)
-	fmt.Println(hex.EncodeToString(results))
-
+	var tempStringArr []string
 	for i := 0; i < len(data); i++ {
-		a := data[i].Req * 2
-		d := results[a : a+2]
+		reg := data[i].Req * 2
+		regData := results[reg : reg+2]
+		if i > 3 && i < 11 {
+			var par = strconv.FormatFloat(float64((float32(binary.BigEndian.Uint16(regData)) / 10)), 'f', 2, 32)
+			tmpstr := []string{"\"", data[i].Par[0], "\": ", par}
+			var str = strings.Join(tmpstr, "")
+			tempStringArr = append(tempStringArr, str)
+		} else {
 
-		f := binary.BigEndian.Uint16(d)
-		fmt.Println(hex.EncodeToString(d))
-		fmt.Printf("%b \n", d)
-		fmt.Printf("%d \n", f)
-		fmt.Println("====")
+		}
 	}
+	fmt.Println(len(tempStringArr))
+	fmt.Println(tempStringArr)
+}
+
+func MekeFlotPar(reg int, data []byte) string {
+	//var retunData string
+
+	return "string"
 }
 
 func Float64frombytes(bytes []byte) float64 {
