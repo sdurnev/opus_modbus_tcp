@@ -1,10 +1,12 @@
 package main
 
 import (
+	"encoding/binary"
 	"encoding/hex"
 	"flag"
 	"fmt"
 	"github.com/goburrow/modbus"
+	"math"
 	"time"
 )
 
@@ -47,7 +49,7 @@ var data opus_param = opus_param{
 	{13, 2, "Total_inverter_current", []string{"bcmTotalInverterCurrent"}},
 	{14, 2, "Maximum_battery_temperature", []string{"bcmMaxBatteryTemperature"}},
 	{15, 2, "Maximum_system_temperature", []string{"bcmMaxSystemTemperature"}},
-	{30, 1, "System voltage alarms", []string{
+	{29, 1, "System voltage alarms", []string{
 		"30_0_Mains_fault",
 		"30_1_Phase_fault",
 		"30_2_Low_sys_volt",
@@ -55,7 +57,7 @@ var data opus_param = opus_param{
 		"30_4_Float_char_devi",
 		"30_5_Invert_sys_mains_fault",
 	}},
-	{31, 1, "System fault alarms", []string{
+	{30, 1, "System fault alarms", []string{
 		"31_0_Earth_fault",
 		"31_1_Load_fuse_fault",
 		"31_2_Bat_fuse_fault",
@@ -67,12 +69,12 @@ var data opus_param = opus_param{
 		"31_8_Sys_over_temp",
 		"31_9_No_sys_temp_sens",
 	}},
-	{32, 1, "Miscellaneous system alarms", []string{
+	{31, 1, "Miscellaneous system alarms", []string{
 		"32_0_Boost_charge_act",
 		"32_1_Config_confl",
 		"32_2_Invent_full",
 	}},
-	{33, 1, "Rectifier alarms", []string{
+	{32, 1, "Rectifier alarms", []string{
 		"33_0_Comm_error",
 		"33_1_Nvram_fault",
 		"33_2_Config_fault",
@@ -84,7 +86,7 @@ var data opus_param = opus_param{
 		"33_8_Rectif_mains_fault",
 		"33_9_Rectif_wrong_vol_vers",
 	}},
-	{34, 1, "Inverter system alarms", []string{
+	{33, 1, "Inverter system alarms", []string{
 		"34_0_Comm_error",
 		"34_1_Nvram_fault",
 		"34_2_Config_fault",
@@ -94,14 +96,14 @@ var data opus_param = opus_param{
 		"34_6_Inverter_fault",
 		"34_7_Bypass_fault",
 	}},
-	{35, 1, "Other modules alarms", []string{
+	{34, 1, "Other modules alarms", []string{
 		"35_0_Comm_error",
 		"35_1_Nvram_fault",
 		"35_2_Config_fault",
 		"35_3_Module_fault",
 		"35_4_Bad_firmware",
 	}},
-	{36, 1, "Battery alarms", []string{
+	{35, 1, "Battery alarms", []string{
 		"36_0_Bat_blo_low_volt",
 		"36_1_Bat_blo_hig_volt",
 		"36_2_Bat_Stri_Asymmet",
@@ -111,14 +113,14 @@ var data opus_param = opus_param{
 		"36_6_No_Bat_Temp_Sens",
 		"36_7_Bat_Temp_Sens_Fault",
 	}},
-	{37, 1, "Low voltage disconnection alarms", []string{
+	{36, 1, "Low voltage disconnection alarms", []string{
 		"37_0_Lo_LVD_Dis_Warn",
 		"37_1_Lo_LVD_Dis_Immi",
 		"37_2_Bat_LVD_Dis_Warn",
 		"37_3_Bat_LVD_Dis_Immi",
 		"37_4_Cont_Fault",
 	}},
-	{38, 1, "External alarms", []string{
+	{37, 1, "External alarms", []string{
 		"38_0_ExtAlmGr1",
 		"38_1_ExtAlmGr2",
 		"38_2_ExtAlmGr3",
@@ -152,15 +154,21 @@ func main() {
 	fmt.Println(len(data))
 	fmt.Println(results)
 	fmt.Println(hex.EncodeToString(results))
-	//fmt.Println(results[3:6])
-	//	fmt.Printf("%x  \n", results)
 
 	for i := 0; i < len(data); i++ {
-		//fmt.Printf("%d ", i)
-		//fmt.Print(data[i].Name)
-		//fmt.Print(" ")
 		a := data[i].Req * 2
-		fmt.Println(hex.EncodeToString(results[a : a+2]))
-		//fmt.Println(results[data[i].Req : data[i].Req+2])*/
+		d := results[a : a+2]
+
+		f := binary.BigEndian.Uint16(d)
+		fmt.Println(hex.EncodeToString(d))
+		fmt.Printf("%b \n", d)
+		fmt.Printf("%d \n", f)
+		fmt.Println("====")
 	}
+}
+
+func Float64frombytes(bytes []byte) float64 {
+	bits := binary.LittleEndian.Uint64(bytes)
+	float := math.Float64frombits(bits)
+	return float
 }

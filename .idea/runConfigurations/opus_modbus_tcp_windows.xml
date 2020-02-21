@@ -2,7 +2,7 @@
   <configuration default="false" name="opus_modbus_tcp_windows" type="GoApplicationRunConfiguration" factoryName="Go Application">
     <module name="opus_modbus_tcp" />
     <working_directory value="$PROJECT_DIR$/" />
-    <parameters value="-ip=10.10.12.20 -id=1 -q=1" />
+    <parameters value="-ip=10.10.12.21" />
     <envs>
       <env name="GOOS" value="windows" />
       <env name="GOARCH" value="amd64" />
