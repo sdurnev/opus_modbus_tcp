@@ -121,6 +121,8 @@
 
 
 
+
+
 [0
 0
 0
@@ -195,6 +197,77 @@
 
 
 
+2_0_Float_char_act
+2_1_Bat_test_act
+2_2_Boost_char_act
+2_3_Temp_compen_act
+3_0_Perio_bat_test
+3_1_Manual bat_test
+3_2_Natur_bat_test
+3_3_Rem_bat_test
+4_0_Auto_boost_char
+4_1_Perio_boost_char
+4_2_Man_boost_char
+4_3_Rem_boost_char
+30_0_Mains_fault
+30_1_Phase_fault
+30_2_Low_sys_volt
+30_3_High_sys_volt
+30_4_Float_char_devi
+30_5_Invert_sys_mains_fault
+31_0_Earth_fault
+31_1_Load_fuse_fault
+31_2_Bat_fuse_fault
+31_3_Rectif_overlo
+31_4_Invert_overlo
+31_5_Bus_fault
+31_6_DCP_Bus_Fault
+31_7_Shunt_fault
+31_8_Sys_over_temp
+31_9_No_sys_temp_sens
+32_0_Boost_charge_act
+32_1_Config_confl
+32_2_Invent_full
+33_0_Comm_error
+33_1_Nvram_fault
+33_2_Config_fault
+33_3_Module_fault
+33_4_Bad_firmware
+33_5_Rectif_fault
+33_6_Rectif_over_vol
+33_7_Rectif_over_temp
+33_8_Rectif_mains_fault
+33_9_Rectif_wrong_vol_vers
+34_0_Comm_error
+34_1_Nvram_fault
+34_2_Config_fault
+34_3_Module_fault
+34_4_Bad_firmware
+34_5_Inver_sys_fault
+34_6_Inverter_fault
+34_7_Bypass_fault
+35_0_Comm_error
+35_1_Nvram_fault
+35_2_Config_fault
+35_3_Module_fault
+35_4_Bad_firmware
+36_0_Bat_blo_low_volt
+36_1_Bat_blo_hig_volt
+36_2_Bat_Stri_Asymmet
+36_3_Auto_boos_char_fault
+36_4_Bat_Test_Fault
+36_5_Bat_Over_Temp
+36_6_No_Bat_Temp_Sens
+36_7_Bat_Temp_Sens_Fault
+37_0_Lo_LVD_Dis_Warn
+37_1_Lo_LVD_Dis_Immi
+37_2_Bat_LVD_Dis_Warn
+37_3_Bat_LVD_Dis_Immi
+37_4_Cont_Fault
+38_0_ExtAlmGr1
+38_1_ExtAlmGr2
+38_2_ExtAlmGr3
+38_3_ExtAlmGr4
 
 
 
