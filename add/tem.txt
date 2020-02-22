@@ -274,66 +274,94 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-0 8
-0 0
-0 0
-0 0
-0 0
-0 0
-0 0
-0 0
-2 30
-0 2
-0 0
-0 2
-0 0
-0 226
-1 152
-0 0
-0 0
-0 0
-0 0
-0 0
-0 0
-0 0
-0 0
-0 0
-0 0
-0 0
-0 0
-0 0
-0 0
-0 32
-0 0
-0 1
-0 0
-0 1
-0 0
-0 0
-0 0
-0 0
-]
+"DataVersionCounter": 8.00
+"OperatingMode":{
+    "2_0_FloatCharAct": 0,
+    "2_1_BatTestAct": 0,
+    "2_2_BoostCharAct": 0,
+    "2_3_TempCompenAct": 0,
+"BatteryTestState":{
+    "3_0_PerioBatTest": 0,
+    "3_1_ManualBatTest": 0,
+    "3_2_NaturBatTest": 0,
+    "3_3_RemBatTest": 0,
+"BoostChargeState":{
+    "4_0_AutoBoostChar": 0,
+    "4_1_PerioBoostChar": 0,
+    "4_2_ManBoostChar": 0,
+    "4_3_RemBoostChar": 0,
+"bcmSystemVoltage": 54.40
+"bcmLoadCurrent": 0.20
+"bcmBatteryCurrent": 0.00
+"bcmTotalRectifierCurrent": 0.20
+"bcmTotalInverterCurrent": 0.00
+"bcmMaxBatteryTemperature": 20.80
+"bcmMaxSystemTemperature": 38.20
+"SystemVoltageAlarms":{
+    "30_0_MainsFault": 0,
+    "30_1_PhaseFault": 0,
+    "30_2_LowSysVolt": 0,
+    "30_3_HighSysVolt": 0,
+    "30_4_FloatCharDevi": 0,
+    "30_5_InvertSysMainsFault": 0,
+"SystemFaultAlarms":{
+    "31_0_EarthFault": 0,
+    "31_1_LoadFuseFault": 0,
+    "31_2_BatFuseFault": 0,
+    "31_3_RectifOverlo": 0,
+    "31_4_InvertOverlo": 0,
+    "31_5_BusFault": 1,
+    "31_6_DCPBusFault": 0,
+    "31_7_ShuntFault": 0,
+    "31_8_SysOverTemp": 0,
+    "31_9_NoSysTempSens": 0,
+"MiscellaneousSystemAlarms":{
+    "32_0_BoostChargeAct": 0,
+    "32_1_ConfigConfl": 0,
+    "32_2_InventFull": 0,
+"RectifierAlarms":{
+    "33_0_CommError": 1,
+    "33_1_NvramFault": 0,
+    "33_2_ConfigFault": 0,
+    "33_3_ModuleFault": 0,
+    "33_4_BadFirmware": 0,
+    "33_5_RectifFault": 0,
+    "33_6_RectifOverVol": 0,
+    "33_7_RectifOverTemp": 0,
+    "33_8_RectifMainsFault": 0,
+    "33_9_RectifWrongVolVers": 0,
+"Inverter system alarms":{
+    "34_0_Comm_error": 0,
+    "34_1_Nvram_fault": 0,
+    "34_2_Config_fault": 0,
+    "34_3_Module_fault": 0,
+    "34_4_Bad_firmware": 0,
+    "34_5_Inver_sys_fault": 0,
+    "34_6_Inverter_fault": 0,
+    "34_7_Bypass_fault": 0,
+"Other modules alarms":{
+    "35_0_Comm_error": 1,
+    "35_1_Nvram_fault": 0,
+    "35_2_Config_fault": 0,
+    "35_3_Module_fault": 0,
+    "35_4_Bad_firmware": 0,
+"Battery alarms":{
+    "36_0_Bat_blo_low_volt": 0,
+    "36_1_Bat_blo_hig_volt": 0,
+    "36_2_Bat_Stri_Asymmet": 0,
+    "36_3_Auto_boos_char_fault": 0,
+    "36_4_Bat_Test_Fault": 0,
+    "36_5_Bat_Over_Temp": 0,
+    "36_6_No_Bat_Temp_Sens": 0,
+    "36_7_Bat_Temp_Sens_Fault": 0,
+ "Low voltage disconnection alarms":{
+    "37_0_Lo_LVD_Dis_Warn": 0,
+    "37_1_Lo_LVD_Dis_Immi": 0,
+    "37_2_Bat_LVD_Dis_Warn": 0,
+    "37_3_Bat_LVD_Dis_Immi": 0,
+    "37_4_Cont_Fault": 0,
+ "External alarms":{
+    "38_0_ExtAlmGr1": 0,
+    "38_1_ExtAlmGr2": 0,
+    "38_2_ExtAlmGr3": 0,
+    "38_3_ExtAlmGr4": 0,

@@ -5,7 +5,6 @@ import (
 	"flag"
 	"fmt"
 	"github.com/goburrow/modbus"
-	"math"
 	"strconv"
 	"strings"
 	"time"
@@ -38,10 +37,10 @@ var data opus_param = opus_param{
 		"3_3_RemBatTest",
 	}},
 	{4, 1, "BoostChargeState", []string{
-		"4_0_AutoBoostChar ",
+		"4_0_AutoBoostChar",
 		"4_1_PerioBoostChar",
-		"4_2_ManBoostChar  ",
-		"4_3_RemBoostChar  ",
+		"4_2_ManBoostChar",
+		"4_3_RemBoostChar",
 	}},
 	{9, 2, "SystemVoltage", []string{"bcmSystemVoltage"}},
 	{10, 2, "LoadCurrent", []string{"bcmLoadCurrent"}},
@@ -87,41 +86,41 @@ var data opus_param = opus_param{
 		"33_8_RectifMainsFault",
 		"33_9_RectifWrongVolVers",
 	}},
-	{33, 1, "Inverter system alarms", []string{
-		"34_0_Comm_error",
-		"34_1_Nvram_fault",
-		"34_2_Config_fault",
-		"34_3_Module_fault",
-		"34_4_Bad_firmware",
-		"34_5_Inver_sys_fault",
-		"34_6_Inverter_fault",
-		"34_7_Bypass_fault",
+	{33, 1, "InverterSystemAlarms", []string{
+		"34_0_CommError",
+		"34_1_NvramFault",
+		"34_2_ConfigFault",
+		"34_3_ModuleFault",
+		"34_4_BadFirmware",
+		"34_5_InverSysFault",
+		"34_6_InverterFault",
+		"34_7_BypassFault",
 	}},
-	{34, 1, "Other modules alarms", []string{
-		"35_0_Comm_error",
-		"35_1_Nvram_fault",
-		"35_2_Config_fault",
-		"35_3_Module_fault",
-		"35_4_Bad_firmware",
+	{34, 1, "OtherModulesAlarms", []string{
+		"35_0_CommError",
+		"35_1_NvramFault",
+		"35_2_ConfigFault",
+		"35_3_ModuleFault",
+		"35_4_BadFirmware",
 	}},
-	{35, 1, "Battery alarms", []string{
-		"36_0_Bat_blo_low_volt",
-		"36_1_Bat_blo_hig_volt",
-		"36_2_Bat_Stri_Asymmet",
-		"36_3_Auto_boos_char_fault",
-		"36_4_Bat_Test_Fault",
-		"36_5_Bat_Over_Temp",
-		"36_6_No_Bat_Temp_Sens",
-		"36_7_Bat_Temp_Sens_Fault",
+	{35, 1, "BatteryAlarms", []string{
+		"36_0_BatBloLowVolt",
+		"36_1_BatBloHigVolt",
+		"36_2_BatStriAsymmet",
+		"36_3_AutoBoosCharFault",
+		"36_4_BatTestFault",
+		"36_5_BatOverTemp",
+		"36_6_NoBatTempSens",
+		"36_7_BatTempSensFault",
 	}},
-	{36, 1, "Low voltage disconnection alarms", []string{
-		"37_0_Lo_LVD_Dis_Warn",
-		"37_1_Lo_LVD_Dis_Immi",
-		"37_2_Bat_LVD_Dis_Warn",
-		"37_3_Bat_LVD_Dis_Immi",
-		"37_4_Cont_Fault",
+	{36, 1, "LowVoltageDisconnectionAlarms", []string{
+		"37_0_LoLVDDisWarn",
+		"37_1_LoLVDDisImmi",
+		"37_2_BatLVDDisWarn",
+		"37_3_BatLVDDisImmi",
+		"37_4_ContFault",
 	}},
-	{37, 1, "External alarms", []string{
+	{37, 1, "ExternalAlarms", []string{
 		"38_0_ExtAlmGr1",
 		"38_1_ExtAlmGr2",
 		"38_2_ExtAlmGr3",
@@ -151,58 +150,56 @@ func main() {
 		fmt.Printf("{\"status\":\"error\", \"error\":\"%s\", \"version\": \"%s\"}", err, version)
 	}
 
-	fmt.Println(results)
+	//fmt.Println(results)
 
-	var tempStringArr []string
+	var tempStringArr []string //Массив сформированых стринговых данных для формирования json ответа
 	for i := 0; i < len(data); i++ {
 		reg := data[i].Req * 2
 		regData := binary.BigEndian.Uint16(results[reg : reg+2])
-		if i == 0 {
+		if i == 0 { // формирование первого параметра DataVersionCounter
 			var par = strconv.FormatFloat(float64((float32(regData))), 'f', 2, 32)
 			tmpstr := []string{"\"", data[i].Par[0], "\": ", par}
 			var str = strings.Join(tmpstr, "")
 			tempStringArr = append(tempStringArr, str)
-		} else if i > 3 && i < 11 {
+		} else if i > 3 && i < 11 { // формирование флотовых параметров
 			var par = strconv.FormatFloat(float64((float32(regData) / 10)), 'f', 2, 32)
 			tmpstr := []string{"\"", data[i].Par[0], "\": ", par}
 			var str = strings.Join(tmpstr, "")
 			tempStringArr = append(tempStringArr, str)
-		} else {
-			//var tStrAr []string
-			fmt.Print(data[i].Req)
-			fmt.Print(" ")
-			fmt.Println(data[i].Name)
-			//fmt.Println(regData)
-			for l := 0; l < 16; l++ {
-				if regData&(1<<l) != 0 {
-					fmt.Println(data[i].Par[l])
-					//mesage = append(mesage, listOfAllarm1[i+1])
+		} else { //формирование битовых параметров
+			var tStrAr string
+			tStrAr = strings.Join([]string{"\"", data[i].Name, "\":{"}, "")
+			for l := 0; l < len(data[i].Par); l++ {
+				var t = strings.Join([]string{"\"", data[i].Par[l], "\": "}, "")
+				if regData&(1<<l) == 0 {
+					if l == len(data[i].Par)-1 {
+						t = strings.Join([]string{t, "0", "}"}, "")
+					} else {
+						t = strings.Join([]string{t, "0", ","}, "")
+					}
+				} else {
+					if l == len(data[i].Par)-1 {
+						t = strings.Join([]string{t, "1", "}"}, "")
+					} else {
+						t = strings.Join([]string{t, "1", ","}, "")
+					}
 				}
-				//fmt.Println(data[i].Par[l])
+				tStrAr = strings.Join([]string{tStrAr, t}, "")
 			}
+			tempStringArr = append(tempStringArr, tStrAr)
 		}
 	}
-	//fmt.Println(len(tempStringArr))
-	fmt.Println(tempStringArr)
-}
-
-/*
-for i := uint(0); i < 16; i++ {
-if a&(1<<i) != 0 {
-//fmt.Println(i)
-mesage = append(mesage, listOfAllarm1[i+1])
-}
-}
-*/
-
-func MekeFlotPar(reg int, data []byte) string {
-	//var retunData string
-
-	return "string"
-}
-
-func Float64frombytes(bytes []byte) float64 {
-	bits := binary.LittleEndian.Uint64(bytes)
-	float := math.Float64frombits(bits)
-	return float
+	for m := 0; m < len(tempStringArr); m++ { //Вывод данных/формирование json ответа
+		if m == 0 { //Печать первого параметра
+			fmt.Print("{")
+			fmt.Print(tempStringArr[m])
+			fmt.Print(",")
+		} else if m == len(tempStringArr)-1 { //Печать последнего параметра
+			fmt.Print(tempStringArr[m])
+			fmt.Printf(", \"version\":\"%s\"} \n", version)
+		} else {
+			fmt.Print(tempStringArr[m])
+			fmt.Print(",")
+		}
+	}
 }
