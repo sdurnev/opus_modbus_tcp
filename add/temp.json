@@ -18,13 +18,13 @@
     "4_2_ManBoostChar": 0,
     "4_3_RemBoostChar": 0
   },
-  "bcmSystemVoltage": 54.40,
-  "bcmLoadCurrent": 0.20,
+  "bcmSystemVoltage": 53.80,
+  "bcmLoadCurrent": 11.20,
   "bcmBatteryCurrent": 0.00,
-  "bcmTotalRectifierCurrent": 0.20,
-  "bcmTotalInverterCurrent": 0.00,
-  "bcmMaxBatteryTemperature": 20.80,
-  "bcmMaxSystemTemperature": 38.30,
+  "bcmTotalRectifierCurrent": 11.30,
+  "bcmTotalInverterCurrent": 1.80,
+  "bcmMaxBatteryTemperature": 27.10,
+  "bcmMaxSystemTemperature": 46.10,
   "SystemVoltageAlarms": {
     "30_0_MainsFault": 0,
     "30_1_PhaseFault": 0,
@@ -39,7 +39,7 @@
     "31_2_BatFuseFault": 0,
     "31_3_RectifOverlo": 0,
     "31_4_InvertOverlo": 0,
-    "31_5_BusFault": 1,
+    "31_5_BusFault": 0,
     "31_6_DCPBusFault": 0,
     "31_7_ShuntFault": 0,
     "31_8_SysOverTemp": 0,
@@ -51,7 +51,7 @@
     "32_2_InventFull": 0
   },
   "RectifierAlarms": {
-    "33_0_CommError": 1,
+    "33_0_CommError": 0,
     "33_1_NvramFault": 0,
     "33_2_ConfigFault": 0,
     "33_3_ModuleFault": 0,
@@ -73,7 +73,7 @@
     "34_7_BypassFault": 0
   },
   "OtherModulesAlarms": {
-    "35_0_CommError": 1,
+    "35_0_CommError": 0,
     "35_1_NvramFault": 0,
     "35_2_ConfigFault": 0,
     "35_3_ModuleFault": 0,
@@ -101,5 +101,6 @@
     "38_1_ExtAlmGr2": 0,
     "38_2_ExtAlmGr3": 0,
     "38_3_ExtAlmGr4": 0
-  }
+  },
+  "version": "0.0.1"
 }

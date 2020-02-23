@@ -2,8 +2,8 @@
   <configuration default="false" name="Build_all" type="CompoundRunConfigurationType">
     <toRun name="opus_modbus_tcp_macos" type="GoApplicationRunConfiguration" />
     <toRun name="opus_modbus_tcp_windows" type="GoApplicationRunConfiguration" />
-    <toRun name="opus_modbus_tcp_rpi" type="GoApplicationRunConfiguration" />
     <toRun name="opus_modbus_tcp_linux" type="GoApplicationRunConfiguration" />
+    <toRun name="opus_modbus_tcp_rpi" type="GoApplicationRunConfiguration" />
     <method v="2" />
   </configuration>
 </component>

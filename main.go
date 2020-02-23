@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/goburrow/modbus"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -12,7 +13,7 @@ import (
 
 //type a map.s.int32
 
-const version = "0.0.1"
+const version = "0.0.2"
 
 type param struct {
 	Req  int
@@ -147,7 +148,8 @@ func main() {
 
 	results, err := client.ReadHoldingRegisters(0, 39)
 	if err != nil {
-		fmt.Printf("{\"status\":\"error\", \"error\":\"%s\", \"version\": \"%s\"}", err, version)
+		fmt.Printf("{\"status\":\"error\", \"error\":\"%s\", \"version\": \"%s\"} \n", err, version)
+		os.Exit(1)
 	}
 
 	//fmt.Println(results)
@@ -162,11 +164,11 @@ func main() {
 			var str = strings.Join(tmpstr, "")
 			tempStringArr = append(tempStringArr, str)
 		} else if i > 3 && i < 11 { // формирование флотовых параметров
-			var par = strconv.FormatFloat(float64((float32(regData) / 10)), 'f', 2, 32)
+			var par = strconv.FormatFloat(float64((float32(int16(regData)) / 10)), 'f', 2, 32)
 			tmpstr := []string{"\"", data[i].Par[0], "\": ", par}
 			var str = strings.Join(tmpstr, "")
 			tempStringArr = append(tempStringArr, str)
-		} else { //формирование битовых параметров
+		} else { // формирование битовых параметров
 			var tStrAr string
 			tStrAr = strings.Join([]string{"\"", data[i].Name, "\":{"}, "")
 			for l := 0; l < len(data[i].Par); l++ {
