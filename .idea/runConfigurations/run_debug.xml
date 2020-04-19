@@ -2,7 +2,7 @@
   <configuration default="false" name="run debug" type="GoApplicationRunConfiguration" factoryName="Go Application">
     <module name="opus_modbus_tcp" />
     <working_directory value="$PROJECT_DIR$/" />
-    <parameters value="-ip=10.10.12.21" />
+    <parameters value="-ip=127.0.0.1 -port=1111" />
     <kind value="FILE" />
     <filePath value="$PROJECT_DIR$/main.go" />
     <directory value="$PROJECT_DIR$/" />

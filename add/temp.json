@@ -1,5 +1,5 @@
 {
-  "DataVersionCounter": 8.00,
+  "DataVersionCounter": 0.00,
   "OperatingMode": {
     "2_0_FloatCharAct": 0,
     "2_1_BatTestAct": 0,
@@ -18,13 +18,13 @@
     "4_2_ManBoostChar": 0,
     "4_3_RemBoostChar": 0
   },
-  "bcmSystemVoltage": 53.80,
-  "bcmLoadCurrent": 11.20,
+  "bcmSystemVoltage": 0.00,
+  "bcmLoadCurrent": 0.00,
   "bcmBatteryCurrent": 0.00,
-  "bcmTotalRectifierCurrent": 11.30,
-  "bcmTotalInverterCurrent": 1.80,
-  "bcmMaxBatteryTemperature": 27.10,
-  "bcmMaxSystemTemperature": 46.10,
+  "bcmTotalRectifierCurrent": 0.00,
+  "bcmTotalInverterCurrent": 0.00,
+  "bcmMaxBatteryTemperature": 0.00,
+  "bcmMaxSystemTemperature": 0.00,
   "SystemVoltageAlarms": {
     "30_0_MainsFault": 0,
     "30_1_PhaseFault": 0,
@@ -102,5 +102,5 @@
     "38_2_ExtAlmGr3": 0,
     "38_3_ExtAlmGr4": 0
   },
-  "version": "0.0.1"
+  "version": "0.0.2"
 }

@@ -13,7 +13,14 @@ import (
 
 //type a map.s.int32
 
-const version = "0.0.2"
+/*
+Важное замечание !!!!
+По описанию (Modbus OPUS Power System) регитров модбас от производителя флотовые значения считываються с 10 по 16 регистр.
+По факту (экперементально проверено) эти занчения лежат с 9 по 15 регистр.
+Данный программный модуль считывает речисты по факту, а ответ формирует согласно описаню от производителя.
+*/
+
+const version = "0.0.3"
 
 type param struct {
 	Req  int
@@ -25,7 +32,7 @@ type param struct {
 type opus_param []param
 
 var data opus_param = opus_param{
-	{1, 2, "DataVersionCounter", []string{"DataVersionCounter"}},
+	{1, 2, "DataVersionCounter", []string{"1_DataVersionCounter"}},
 	{2, 1, "OperatingMode", []string{
 		"2_0_FloatCharAct",
 		"2_1_BatTestAct",
@@ -43,14 +50,14 @@ var data opus_param = opus_param{
 		"4_2_ManBoostChar",
 		"4_3_RemBoostChar",
 	}},
-	{9, 2, "SystemVoltage", []string{"bcmSystemVoltage"}},
-	{10, 2, "LoadCurrent", []string{"bcmLoadCurrent"}},
-	{11, 2, "BatteryCurrent", []string{"bcmBatteryCurrent"}},
-	{12, 2, "TotalRectifierCurrent", []string{"bcmTotalRectifierCurrent"}},
-	{13, 2, "TotalInverterCurrent", []string{"bcmTotalInverterCurrent"}},
-	{14, 2, "MaximumBatteryTemperature", []string{"bcmMaxBatteryTemperature"}},
-	{15, 2, "MaximumSystemTemperature", []string{"bcmMaxSystemTemperature"}},
-	{29, 1, "SystemVoltageAlarms", []string{
+	{9, 2, "SystemVoltage", []string{"10_bcmSystemVoltage"}},
+	{10, 2, "LoadCurrent", []string{"11_bcmLoadCurrent"}},
+	{11, 2, "BatteryCurrent", []string{"12_bcmBatteryCurrent"}},
+	{12, 2, "TotalRectifierCurrent", []string{"13_bcmTotalRectifierCurrent"}},
+	{13, 2, "TotalInverterCurrent", []string{"14_bcmTotalInverterCurrent"}},
+	{14, 2, "MaximumBatteryTemperature", []string{"15_bcmMaxBatteryTemperature"}},
+	{15, 2, "MaximumSystemTemperature", []string{"16_bcmMaxSystemTemperature"}},
+	{30, 1, "SystemVoltageAlarms", []string{
 		"30_0_MainsFault",
 		"30_1_PhaseFault",
 		"30_2_LowSysVolt",
@@ -58,7 +65,7 @@ var data opus_param = opus_param{
 		"30_4_FloatCharDevi",
 		"30_5_InvertSysMainsFault",
 	}},
-	{30, 1, "SystemFaultAlarms", []string{
+	{31, 1, "SystemFaultAlarms", []string{
 		"31_0_EarthFault",
 		"31_1_LoadFuseFault",
 		"31_2_BatFuseFault",
@@ -70,12 +77,12 @@ var data opus_param = opus_param{
 		"31_8_SysOverTemp",
 		"31_9_NoSysTempSens",
 	}},
-	{31, 1, "MiscellaneousSystemAlarms", []string{
+	{32, 1, "MiscellaneousSystemAlarms", []string{
 		"32_0_BoostChargeAct",
 		"32_1_ConfigConfl",
 		"32_2_InventFull",
 	}},
-	{32, 1, "RectifierAlarms", []string{
+	{33, 1, "RectifierAlarms", []string{
 		"33_0_CommError",
 		"33_1_NvramFault",
 		"33_2_ConfigFault",
@@ -87,7 +94,7 @@ var data opus_param = opus_param{
 		"33_8_RectifMainsFault",
 		"33_9_RectifWrongVolVers",
 	}},
-	{33, 1, "InverterSystemAlarms", []string{
+	{34, 1, "InverterSystemAlarms", []string{
 		"34_0_CommError",
 		"34_1_NvramFault",
 		"34_2_ConfigFault",
@@ -97,14 +104,14 @@ var data opus_param = opus_param{
 		"34_6_InverterFault",
 		"34_7_BypassFault",
 	}},
-	{34, 1, "OtherModulesAlarms", []string{
+	{35, 1, "OtherModulesAlarms", []string{
 		"35_0_CommError",
 		"35_1_NvramFault",
 		"35_2_ConfigFault",
 		"35_3_ModuleFault",
 		"35_4_BadFirmware",
 	}},
-	{35, 1, "BatteryAlarms", []string{
+	{36, 1, "BatteryAlarms", []string{
 		"36_0_BatBloLowVolt",
 		"36_1_BatBloHigVolt",
 		"36_2_BatStriAsymmet",
@@ -114,14 +121,14 @@ var data opus_param = opus_param{
 		"36_6_NoBatTempSens",
 		"36_7_BatTempSensFault",
 	}},
-	{36, 1, "LowVoltageDisconnectionAlarms", []string{
+	{37, 1, "LowVoltageDisconnectionAlarms", []string{
 		"37_0_LoLVDDisWarn",
 		"37_1_LoLVDDisImmi",
 		"37_2_BatLVDDisWarn",
 		"37_3_BatLVDDisImmi",
 		"37_4_ContFault",
 	}},
-	{37, 1, "ExternalAlarms", []string{
+	{38, 1, "ExternalAlarms", []string{
 		"38_0_ExtAlmGr1",
 		"38_1_ExtAlmGr2",
 		"38_2_ExtAlmGr3",
@@ -191,6 +198,7 @@ func main() {
 			tempStringArr = append(tempStringArr, tStrAr)
 		}
 	}
+	//fmt.Println(tempStringArr)
 	for m := 0; m < len(tempStringArr); m++ { //Вывод данных/формирование json ответа
 		if m == 0 { //Печать первого параметра
 			fmt.Print("{")
