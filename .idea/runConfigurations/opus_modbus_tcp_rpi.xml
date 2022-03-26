@@ -9,9 +9,9 @@
       <env name="GOARM" value="5" />
     </envs>
     <kind value="FILE" />
-    <filePath value="$PROJECT_DIR$/main.go" />
     <directory value="$PROJECT_DIR$/" />
-    <output_directory value="$PROJECT_DIR$/bin/0.0.3/rpi" />
+    <filePath value="$PROJECT_DIR$/main.go" />
+    <output_directory value="$PROJECT_DIR$/bin/0.0.4/rpi" />
     <option name="run" value="false" />
     <method v="2" />
   </configuration>

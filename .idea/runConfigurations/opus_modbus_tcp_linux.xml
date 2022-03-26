@@ -8,9 +8,9 @@
       <env name="GOARCH" value="amd64" />
     </envs>
     <kind value="FILE" />
-    <filePath value="$PROJECT_DIR$/main.go" />
     <directory value="$PROJECT_DIR$/" />
-    <output_directory value="$PROJECT_DIR$/bin/0.0.3/linux" />
+    <filePath value="$PROJECT_DIR$/main.go" />
+    <output_directory value="$PROJECT_DIR$/bin/0.0.4/linux" />
     <option name="run" value="false" />
     <method v="2" />
   </configuration>

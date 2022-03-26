@@ -20,7 +20,7 @@ import (
 Данный программный модуль считывает речисты по факту, а ответ формирует согласно описаню от производителя.
 */
 
-const version = "0.0.3"
+const version = "0.0.4"
 
 type param struct {
 	Req  int
@@ -57,6 +57,10 @@ var data opus_param = opus_param{
 	{13, 2, "TotalInverterCurrent", []string{"14_bcmTotalInverterCurrent"}},
 	{14, 2, "MaximumBatteryTemperature", []string{"15_bcmMaxBatteryTemperature"}},
 	{15, 2, "MaximumSystemTemperature", []string{"16_bcmMaxSystemTemperature"}},
+	{16, 2, "MidpointVoltage", []string{"17_bcmMidpointVoltage"}},
+	{17, 2, "Phase1RectifierInputVoltage", []string{"18_bcmPhase1RectifierInputVoltage"}},
+	{18, 2, "Phase2RectifierInputVoltage", []string{"19_bcmPhase2RectifierInputVoltage"}},
+	{19, 2, "Phase3RectifierInputVoltage", []string{"20_bcmPhase3RectifierInputVoltage"}},
 	{30, 1, "SystemVoltageAlarms", []string{
 		"30_0_MainsFault",
 		"30_1_PhaseFault",
@@ -160,6 +164,7 @@ func main() {
 	}
 
 	//fmt.Println(results)
+	//fmt.Println(len(results) / 2)
 
 	var tempStringArr []string //Массив сформированых стринговых данных для формирования json ответа
 	for i := 0; i < len(data); i++ {
@@ -170,7 +175,7 @@ func main() {
 			tmpstr := []string{"\"", data[i].Par[0], "\": ", par}
 			var str = strings.Join(tmpstr, "")
 			tempStringArr = append(tempStringArr, str)
-		} else if i > 3 && i < 11 { // формирование флотовых параметров
+		} else if i > 3 && i < 15 { // формирование флотовых параметров
 			var par = strconv.FormatFloat(float64((float32(int16(regData)) / 10)), 'f', 2, 32)
 			tmpstr := []string{"\"", data[i].Par[0], "\": ", par}
 			var str = strings.Join(tmpstr, "")
